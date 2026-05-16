@@ -1,0 +1,11 @@
+# Built snap packages
+*.snap
+
+# Snapcraft build directories
+parts/
+stage/
+prime/
+.snapcraft/
+
+# Claude Code local settings
+.claude/

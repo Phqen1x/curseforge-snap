@@ -1,0 +1,61 @@
+name: curseforge
+base: core24
+adopt-info: curseforge
+summary: CurseForge – The ultimate destination for mods & addons
+description: |
+  CurseForge is the ultimate game platform for discovering, installing,
+  and managing mods, addons, and modpacks for your favourite games
+  including Minecraft, World of Warcraft, The Sims 4, and many more.
+
+grade: stable
+confinement: strict
+
+platforms:
+  amd64:
+
+apps:
+  curseforge:
+    command: opt/CurseForge/curseforge --no-sandbox
+    desktop: usr/share/applications/CurseForge.desktop
+    extensions: [gnome]
+    environment:
+      TMPDIR: $XDG_RUNTIME_DIR
+      HOME: $SNAP_USER_COMMON
+    plugs:
+      - audio-playback
+      - browser-support
+      - home
+      - network
+      - network-bind
+      - network-observe
+      - removable-media
+      - unity7
+
+parts:
+  curseforge:
+    plugin: dump
+    source: .
+    override-pull: |
+      DEB_URL="https://curseforge.overwolf.com/downloads/curseforge-latest-linux.deb"
+      curl -L -o /tmp/curseforge.deb "$DEB_URL"
+      craftctl set version="$(dpkg-deb --showformat='${Version}' --show /tmp/curseforge.deb | cut -d'~' -f1)"
+      dpkg-deb -x /tmp/curseforge.deb "$CRAFT_PART_SRC"
+    build-packages:
+      - curl
+    stage-packages:
+      - libasound2t64
+      - libnotify4
+      - libnss3
+      - libsecret-1-0
+      - libuuid1
+      - libxss1
+      - libxtst6
+    override-prime: |
+      craftctl default
+      mv usr/share/applications/curseforge.desktop usr/share/applications/CurseForge.desktop
+      install -Dm644 usr/share/icons/hicolor/256x256/apps/curseforge.png meta/gui/icon.png
+      sed -i 's|^Icon=.*|Icon=${SNAP}/meta/gui/icon.png|' usr/share/applications/CurseForge.desktop
+    prime:
+      - -usr/share/doc
+      - -usr/share/man
+      - -usr/share/lintian
