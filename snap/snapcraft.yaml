@@ -1,11 +1,17 @@
 name: curseforge
 base: core24
 adopt-info: curseforge
+title: CurseForge
 summary: CurseForge – The ultimate destination for mods & addons
 description: |
   CurseForge is the ultimate game platform for discovering, installing,
   and managing mods, addons, and modpacks for your favourite games
   including Minecraft, World of Warcraft, The Sims 4, and many more.
+license: LicenseRef-proprietary
+website: https://www.curseforge.com/
+contact: https://github.com/Phqen1x/curseforge-snap/issues
+issues: https://github.com/Phqen1x/curseforge-snap/issues
+source-code: https://github.com/Phqen1x/curseforge-snap
 
 grade: stable
 confinement: strict
