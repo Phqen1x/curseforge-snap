@@ -1,11 +1,28 @@
 #!/bin/bash
 
+CMD="sudo snap connect curseforge:network-observe"
+
 if ! snapctl is-connected network-observe; then
-    zenity --error \
-        --title="CurseForge – Permission Required" \
-        --width=500 \
-        --text="CurseForge requires the <b>network-observe</b> permission to start.\n\nGrant it by running the following command in a terminal:\n\n<tt>sudo snap connect curseforge:network-observe</tt>\n\nThen relaunch CurseForge." \
-        2>/dev/null
+    while true; do
+        output=$(zenity --error \
+            --title="CurseForge – Permission Required" \
+            --width=500 \
+            --text="CurseForge requires the <b>network-observe</b> permission to start.\n\nRun the following command in a terminal, then relaunch CurseForge:\n\n<tt>$CMD</tt>" \
+            --extra-button="Copy Command" \
+            2>/dev/null)
+
+        if [ "$output" = "Copy Command" ]; then
+            printf '%s' "$CMD" | xclip -selection clipboard 2>/dev/null || \
+            printf '%s' "$CMD" | wl-copy 2>/dev/null
+            zenity --info \
+                --title="Copied" \
+                --text="Command copied to clipboard!" \
+                --timeout=2 \
+                2>/dev/null &
+        else
+            break
+        fi
+    done
     exit 1
 fi
 
