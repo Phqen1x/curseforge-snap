@@ -12,7 +12,7 @@ if ! snapctl is-connected network-observe; then
 
     if [ "$output" = "Copy Command" ]; then
         printf '%s' "$CMD" | xclip -selection clipboard 2>/dev/null || \
-        printf '%s' "$CMD" | wl-copy 2>/dev/null
+        printf '%s' "$CMD" | wl-copy --paste-once 2>/dev/null &
     fi
     exit 1
 fi
