@@ -1,0 +1,12 @@
+#!/bin/bash
+
+if ! snapctl is-connected network-observe; then
+    zenity --error \
+        --title="CurseForge – Permission Required" \
+        --width=500 \
+        --text="CurseForge requires the <b>network-observe</b> permission to start.\n\nGrant it by running the following command in a terminal:\n\n<tt>sudo snap connect curseforge:network-observe</tt>\n\nThen relaunch CurseForge." \
+        2>/dev/null
+    exit 1
+fi
+
+exec "$SNAP/opt/CurseForge/curseforge" --no-sandbox "$@"

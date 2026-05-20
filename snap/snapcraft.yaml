@@ -25,7 +25,7 @@ layout:
 
 apps:
   curseforge:
-    command: opt/CurseForge/curseforge --no-sandbox
+    command: usr/bin/curseforge-launch
     desktop: usr/share/applications/CurseForge.desktop
     extensions: [gnome]
     environment:
@@ -36,16 +36,26 @@ apps:
       - audio-playback
       - browser-support
       - home
-      - ipc
       - network
       - network-bind
-      - network-manager
       - network-observe
+      - network-manager
       - removable-media
       - system-observe
-      - unity7
 
 parts:
+  launcher:
+    plugin: dump
+    source: snap/local
+    organize:
+      launch: usr/bin/curseforge-launch
+    stage-packages:
+      - zenity
+    prime:
+      - usr/bin/curseforge-launch
+      - usr/bin/zenity
+      - usr/share/zenity
+
   curseforge:
     plugin: dump
     source: .
