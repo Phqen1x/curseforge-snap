@@ -7,6 +7,10 @@ description: |
   CurseForge is the ultimate game platform for discovering, installing,
   and managing mods, addons, and modpacks for your favourite games
   including Minecraft, World of Warcraft, The Sims 4, and many more.
+
+  This app requires network-observe to be connected, until auto connection is
+  approved run the following command after installing:
+  sudo snap connect curseforge:network-observe
 website: https://www.curseforge.com/
 license: Proprietary
 contact: https://github.com/Phqen1x/curseforge-snap/issues
