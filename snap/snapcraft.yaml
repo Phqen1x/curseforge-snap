@@ -19,6 +19,10 @@ confinement: strict
 platforms:
   amd64:
 
+layout:
+  /opt/CurseForge:
+    bind: $SNAP/opt/CurseForge
+
 apps:
   curseforge:
     command: opt/CurseForge/curseforge --no-sandbox
@@ -31,6 +35,7 @@ apps:
       - audio-playback
       - browser-support
       - home
+      - ipc
       - network
       - network-bind
       - network-observe
