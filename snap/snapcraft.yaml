@@ -42,6 +42,7 @@ apps:
       - network-manager
       - network-observe
       - removable-media
+      - system-observe
       - unity7
 
 parts:
