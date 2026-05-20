@@ -54,7 +54,6 @@ parts:
     prime:
       - usr/bin/curseforge-launch
       - usr/bin/zenity
-      - usr/share/zenity
 
   curseforge:
     plugin: dump
