@@ -1,4 +1,12 @@
 #!/bin/bash
+DCONF_KEY="/org/gnome/mutter/check-alive-timeout"
+OLD_TIMEOUT=$(dconf read "$DCONF_KEY" 2>/dev/null)
+dconf write "$DCONF_KEY" "uint32 120000" 2>/dev/null || true
+if [ -n "$OLD_TIMEOUT" ]; then
+    trap "dconf write '$DCONF_KEY' '$OLD_TIMEOUT' 2>/dev/null || true" EXIT
+else
+    trap "dconf reset '$DCONF_KEY' 2>/dev/null || true" EXIT
+fi
 
 CMD="sudo snap connect curseforge:network-observe"
 
