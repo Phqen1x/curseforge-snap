@@ -56,9 +56,13 @@ parts:
       launch: usr/bin/curseforge-launch
     stage-packages:
       - zenity
+      - xclip
+      - wl-clipboard
     prime:
       - usr/bin/curseforge-launch
       - usr/bin/zenity
+      - usr/bin/xclip
+      - usr/bin/wl-copy
 
   curseforge:
     plugin: dump
