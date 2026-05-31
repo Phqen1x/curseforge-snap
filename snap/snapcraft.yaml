@@ -36,6 +36,7 @@ apps:
       TMPDIR: $XDG_RUNTIME_DIR
       HOME: $SNAP_USER_COMMON
       GIO_MODULE_DIR: $SNAP/usr/lib/x86_64-linux-gnu/gio/modules
+      ELECTRON_NO_UPDATER: "1"
     plugs:
       - audio-playback
       - browser-support
@@ -57,11 +58,13 @@ parts:
       - zenity
       - xclip
       - wl-clipboard
+      - jq
     prime:
       - usr/bin/curseforge-launch
       - usr/bin/zenity
       - usr/bin/xclip
       - usr/bin/wl-copy
+      - usr/bin/jq
 
   curseforge:
     plugin: dump
