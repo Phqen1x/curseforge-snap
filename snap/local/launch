@@ -25,4 +25,4 @@ if ! snapctl is-connected network-observe; then
     exit 1
 fi
 
-exec "$SNAP/opt/CurseForge/curseforge" --no-sandbox "$@"
+exec "$SNAP/opt/CurseForge/curseforge" --no-sandbox --appUpdateUrl="http://127.0.0.1:1/" "$@"
