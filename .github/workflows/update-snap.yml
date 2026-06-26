@@ -12,10 +12,6 @@ on:
   push:
     branches:
       - main
-    inputs:
-      force:
-        type: boolean
-        default: true
 
 jobs:
   check-version:
@@ -55,7 +51,11 @@ jobs:
         run: |
           DEB="${{ steps.deb.outputs.version }}"
           EDGE="${{ steps.edge.outputs.version }}"
-          FORCE="${{ github.event.inputs.force }}"
+          if [ "${{ github.event_name }}" = "push" ]; then
+            FORCE="true"
+          else
+            FORCE="${{ github.event.inputs.force }}"
+          fi
           if [ "$DEB" != "$EDGE" ] || [ "$FORCE" = "true" ]; then
             echo "needs_update=true" >> "$GITHUB_OUTPUT"
             echo "Update needed: deb=$DEB edge=$EDGE force=$FORCE"
