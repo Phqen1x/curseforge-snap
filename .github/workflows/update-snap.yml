@@ -9,6 +9,13 @@ on:
         description: Force build even if version is unchanged
         type: boolean
         default: false
+  push:
+    branches:
+      - main
+    inputs:
+      force:
+        type: boolean
+        default: true
 
 jobs:
   check-version:
@@ -36,7 +43,7 @@ jobs:
             "https://api.snapcraft.io/v2/snaps/info/curseforge" \
             | jq -r '
                 [.["channel-map"][]
-                  | select(.channel.name == "latest/edge")
+                  | select(.channel.name == "edge")
                   | .version
                 ][0] // "none"
               ')
@@ -46,9 +53,9 @@ jobs:
       - name: Decide whether a build is needed
         id: compare
         run: |
-          DEB="${{ steps.deb.outputs.version }}"
-          EDGE="${{ steps.edge.outputs.version }}"
-          FORCE="${{ github.event.inputs.force }}"
+          DEB= "${{ steps.deb.outputs.version }}"
+          EDGE= "${{ steps.edge.outputs.version }}"
+          FORCE= "${{ github.event.inputs.force }}"
           if [ "$DEB" != "$EDGE" ] || [ "$FORCE" = "true" ]; then
             echo "needs_update=true" >> "$GITHUB_OUTPUT"
             echo "Update needed: deb=$DEB edge=$EDGE force=$FORCE"
